@@ -1,0 +1,14 @@
+
+<Window x:Class="pract_15.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Вход"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="20" Width="250">
+        <TextBlock Text="Вход в систему" FontSize="16" Margin="0,0,0,10"/>
+        <PasswordBox x:Name="PinBox"/>
+        <Button Content="Войти как менеджер" Margin="0,10,0,0" Click="Login_Click"/>
+        <Button Content="Войти как посетитель" Click="Guest_Click"/>
+    </StackPanel>
+</Window>

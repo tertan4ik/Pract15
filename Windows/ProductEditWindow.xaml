@@ -1,0 +1,195 @@
+﻿<Window x:Class="pract_15.Windows.ProductEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:validators="clr-namespace:pract_15.Validators"
+        mc:Ignorable="d"
+        Title="Товар"
+        Width="480"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- НАЗВАНИЕ -->
+        <TextBlock Text="Название:" VerticalAlignment="Top"/>
+        <StackPanel Grid.Column="1">
+            <TextBox x:Name="NameBox">
+                <TextBox.Text>
+                    <Binding Path="Product.Name"
+                             UpdateSourceTrigger="PropertyChanged"
+                           >
+                        <Binding.ValidationRules>
+                            <validators:NotEmptyValidator/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <ItemsControl Foreground="Red"
+                          FontSize="12"
+                          ItemsSource="{Binding ElementName=NameBox,
+                                                Path=(Validation.Errors)}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text=""/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <!-- ЦЕНА -->
+        <TextBlock Grid.Row="1" Text="Цена:" VerticalAlignment="Top"/>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBox x:Name="PriceBox">
+                <TextBox.Text>
+                    <Binding Path="Product.Price"
+                             UpdateSourceTrigger="PropertyChanged"
+                            >
+                        <Binding.ValidationRules>
+                            <validators:PositiveNumberValidator/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <ItemsControl Foreground="Red"
+                          FontSize="12"
+                          ItemsSource="{Binding ElementName=PriceBox,
+                                                Path=(Validation.Errors)}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text=""/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <!-- ОСТАТОК -->
+        <TextBlock Grid.Row="2" Text="Остаток:" VerticalAlignment="Top"/>
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <TextBox x:Name="StockBox">
+                <TextBox.Text>
+                    <Binding Path="Product.Stock"
+                             UpdateSourceTrigger="PropertyChanged"
+                           >
+                        <Binding.ValidationRules>
+                            <validators:RangeValidator Min="0" Max="100000"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <ItemsControl Foreground="Red"
+                          FontSize="12"
+                          ItemsSource="{Binding ElementName=StockBox,
+                                                Path=(Validation.Errors)}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text=""/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <!-- РЕЙТИНГ -->
+        <TextBlock Grid.Row="3" Text="Рейтинг:" VerticalAlignment="Top"/>
+        <StackPanel Grid.Row="3" Grid.Column="1">
+            <TextBox x:Name="RatingBox">
+                <TextBox.Text>
+                    <Binding Path="Product.Rating"
+                             UpdateSourceTrigger="PropertyChanged"
+                       >
+                        <Binding.ValidationRules>
+                            <validators:RangeValidator Min="0" Max="5"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <ItemsControl Foreground="Red"
+                          FontSize="12"
+                          ItemsSource="{Binding ElementName=RatingBox,
+                                                Path=(Validation.Errors)}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text=""/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <!-- КАТЕГОРИЯ -->
+        <TextBlock Grid.Row="4" Text="Категория:"/>
+        <ComboBox Grid.Row="4" Grid.Column="1"
+                  ItemsSource="{Binding Categories}"
+                  SelectedItem="{Binding SelectedCategory}"
+                  DisplayMemberPath="Name"/>
+
+        <!-- БРЕНД -->
+        <TextBlock Grid.Row="5" Text="Бренд:"/>
+        <ComboBox Grid.Row="5" Grid.Column="1"
+                  ItemsSource="{Binding Brands}"
+                  SelectedItem="{Binding SelectedBrand}"
+                  DisplayMemberPath="Name"/>
+
+        <!-- ОПИСАНИЕ -->
+        <TextBlock Grid.Row="6" Text="Описание:" VerticalAlignment="Top"/>
+        <TextBox Grid.Row="6" Grid.Column="1"
+                 Height="80"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 Text="{Binding Product.Description}"/>
+
+        <StackPanel Orientation="Vertical" Grid.Row="7">
+            <TextBlock Text="Теги:"/>
+
+            <ItemsControl ItemsSource="{Binding Tags}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Name}"
+          IsChecked="{Binding IsSelected}"
+          Padding="4"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+      
+        <!-- КНОПКИ -->
+        <StackPanel Grid.Row="8"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,10,0,0">
+            <Button Content="Сохранить"
+                    Width="100"
+                    Margin="0,0,5,0"
+                    Click="Save_Click"/>
+            <Button Content="Отмена"
+                    Width="100"
+                    Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

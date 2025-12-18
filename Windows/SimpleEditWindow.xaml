@@ -1,0 +1,22 @@
+<Window x:Class="pract_15.Windows.SimpleEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:validators="clr-namespace:pract_15.Validators"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner">
+    <StackPanel Margin="20" Width="250">
+        <TextBlock x:Name="TitleText" Margin="0,0,0,5"/>
+        <TextBox x:Name="ValueBox">
+            <TextBox.Text>
+                <Binding RelativeSource="{RelativeSource Self}"
+                         Path="Text"
+                         UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validators:NotEmptyValidator/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button Content="Сохранить" Margin="0,10,0,0" Click="Save_Click"/>
+    </StackPanel>
+</Window>

@@ -16,8 +16,8 @@
     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
 
             <Setter Property="Background" Value="#00c4b4"/>
-
-            <Setter Property="Width" Value="250"/>
+        <Setter Property="Foreground" Value="{StaticResource MaterialDesign.Brush.Primary.Foreground}"/>
+        <Setter Property="Width" Value="250"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="ItemContainerStyle">

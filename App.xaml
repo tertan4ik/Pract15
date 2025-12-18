@@ -11,7 +11,7 @@
 
                 <!-- Material Design базовые стили -->
                 <ResourceDictionary
-                Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml"/>
+                Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml"/>
 
                 <!-- Тема под задание -->
                 <materialDesign:BundledTheme BaseTheme="Light"/>

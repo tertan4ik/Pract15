@@ -5,13 +5,14 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace pract_15
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         // ===== ƒ¿ÕÕ€≈ =====
         public ObservableCollection<Product> Products { get; set; } = new();
@@ -23,18 +24,50 @@ namespace pract_15
 
         // ===== ‘»À‹“–€ =====
         public string SearchText { get; set; }
-        public string PriceFrom { get; set; }
-        public string PriceTo { get; set; }
+        public string _PriceFrom = "";
+        public string _PriceTo = "";
 
         public Category SelectedCategory { get; set; }
         public Brand SelectedBrand { get; set; }
         public bool IsManager { get; set; } = false;
-        // ===== ¡ƒ =====
+
         private readonly ElectroShopDbContext db = DBService.Instance.Context;
 
-        // =====================================================================
-        //  ŒÕ—“–” “Œ–
-        // =====================================================================
+        public string PriceFrom
+        {
+            get => _PriceFrom;
+            set
+            {
+                if (_PriceFrom != value)
+                {
+                    _PriceFrom = value;
+                    OnPropertyChanged();
+                    ProductsView.Refresh();
+                }
+            }
+        }
+
+        public string PriceTo
+        {
+            get => _PriceTo;
+            set
+            {
+                if (_PriceTo != value)
+                {
+                    _PriceTo = value;
+                    OnPropertyChanged();
+                    ProductsView.Refresh();
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public MainWindow(bool isManager)
         {
             IsManager = isManager;
@@ -55,10 +88,6 @@ namespace pract_15
                 ManagerUI.Visibility = Visibility.Visible;
             }
         }
-
-        // =====================================================================
-        // «¿√–”« ¿ “Œ¬¿–Œ¬
-        // =====================================================================
         public void LoadProducts()
         {
             Products.Clear();
@@ -74,9 +103,8 @@ namespace pract_15
             }
         }
 
-        // =====================================================================
-        // ‘»À‹“–¿÷»ﬂ
-        // =====================================================================
+
+
         private bool FilterProducts(object obj)
         {
             if (obj is not Product p) return false;
@@ -90,12 +118,23 @@ namespace pract_15
 
             if (SelectedBrand != null && p.BrandId != SelectedBrand.Id)
                 return false;
+            if (!string.IsNullOrWhiteSpace(PriceFrom))
+            {
+                if (double.TryParse(PriceFrom, out double minPrice))
+                {
+                    if (Convert.ToDouble(p.Price) < minPrice)
+                        return false;
+                }
+            }
 
-            if (!string.IsNullOrEmpty(PriceFrom) && p.Price < Convert.ToDecimal(PriceFrom))
-                return false;
-
-            if (!string.IsNullOrEmpty(PriceTo) && p.Price > Convert.ToDecimal(PriceTo))
-                return false;
+            if (!string.IsNullOrWhiteSpace(PriceTo))
+            {
+                if (double.TryParse(PriceTo, out double maxPrice))
+                {
+                    if (Convert.ToDouble(p.Price) > maxPrice)
+                        return false;
+                }
+            }
 
             return true;
         }
@@ -105,9 +144,8 @@ namespace pract_15
             ProductsView.Refresh();
         }
 
-        // =====================================================================
-        // —Œ–“»–Œ¬ ¿
-        // =====================================================================
+      
+
         private void SortChanged(object sender, SelectionChangedEventArgs e)
         {
             ProductsView.SortDescriptions.Clear();
@@ -138,6 +176,7 @@ namespace pract_15
                     ProductsView.SortDescriptions.Add(
                         new SortDescription("Stock", ListSortDirection.Descending));
                     break;
+
             }
         }
 

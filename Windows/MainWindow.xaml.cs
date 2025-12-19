@@ -144,7 +144,19 @@ namespace pract_15
             ProductsView.Refresh();
         }
 
-      
+        private void ResetFilters_Click(object sender, RoutedEventArgs e)
+        {
+            SearchText = string.Empty;
+            SelectedCategory = null;
+            SelectedBrand = null;
+            PriceFrom = null;
+            PriceTo = null;
+            FiltCat.Text = null;
+            FiltBra.Text = null;
+
+            FiltersChanged(null, null);
+        }
+
 
         private void SortChanged(object sender, SelectionChangedEventArgs e)
         {

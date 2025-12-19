@@ -46,18 +46,22 @@
             <TextBlock Text="Фильтры:" FontSize="16"/>
 
             <TextBlock Text="По категориям" FontSize="16"/>
-            <ComboBox ItemsSource="{Binding Categories}"
+            <ComboBox
+                x:Name="FiltCat"
+                ItemsSource="{Binding Categories,UpdateSourceTrigger=PropertyChanged}"
                       DisplayMemberPath="Name"
-                      SelectedItem="{Binding SelectedCategory}"
+                      SelectedItem="{Binding SelectedCategory,UpdateSourceTrigger=PropertyChanged}"
                       SelectionChanged="FiltersChanged"                 
                       Margin="0,5"
                
                       />
             <TextBlock Text="По брендам" FontSize="16"/>
-            <ComboBox ItemsSource="{Binding Brands}"                     
+            <ComboBox 
+                x:Name="FiltBra"
+                ItemsSource="{Binding Brands,UpdateSourceTrigger=PropertyChanged}"                     
                       DisplayMemberPath="Name"
                       TextSearch.TextPath="Name"
-                      SelectedItem="{Binding SelectedBrand}" 
+                      SelectedItem="{Binding SelectedBrand,UpdateSourceTrigger=PropertyChanged}" 
                          SelectionChanged="FiltersChanged"   
                       Margin="0,5"
                         
@@ -78,6 +82,10 @@
                 <ComboBoxItem Tag="StockAsc">Количество ↑</ComboBoxItem>
                 <ComboBoxItem Tag="StockDesc">Количество ↓</ComboBoxItem>
             </ComboBox>
+
+            <Button Content="Сбросить фильтры"
+            Margin="0,10,0,0"
+            Click="ResetFilters_Click"/>
 
             <StackPanel
     Grid.Column="0"

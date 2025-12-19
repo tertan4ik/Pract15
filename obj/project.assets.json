@@ -4860,23 +4860,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\st310-06\\.nuget\\packages\\": {},
+    "C:\\Users\\pavel\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\st310-06\\Desktop\\Новая папка (2)\\Pract15\\pract_15.csproj",
+      "projectUniqueName": "C:\\Users\\pavel\\OneDrive\\Desktop\\TRPO\\Новая папка\\Pract15\\pract_15.csproj",
       "projectName": "pract_15",
-      "projectPath": "C:\\Users\\st310-06\\Desktop\\Новая папка (2)\\Pract15\\pract_15.csproj",
-      "packagesPath": "C:\\Users\\st310-06\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\st310-06\\Desktop\\Новая папка (2)\\Pract15\\obj\\",
+      "projectPath": "C:\\Users\\pavel\\OneDrive\\Desktop\\TRPO\\Новая папка\\Pract15\\pract_15.csproj",
+      "packagesPath": "C:\\Users\\pavel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pavel\\OneDrive\\Desktop\\TRPO\\Новая папка\\Pract15\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\st310-06\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pavel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4886,7 +4886,6 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "C:\\Users\\st310-06\\.nuget\\packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4905,7 +4904,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0-windows7.0": {
@@ -4953,7 +4952,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -2,8 +2,11 @@
 using pract_15.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace pract_15.Windows
 {
@@ -45,24 +48,39 @@ namespace pract_15.Windows
             InitializeComponent();
         }
 
+
+
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            if (Validation.GetHasError(this))
+            // 1. Название
+            if (
+         string.IsNullOrWhiteSpace(Product.Name) ||
+         Product.Price <= 0 ||
+         Product.Stock < 0 ||
+         Product.Rating < 0 || Product.Rating > 5 ||
+         SelectedCategory == null ||
+         SelectedBrand == null ||
+         !Tags.Any(t => t.IsSelected)
+        )
             {
-                MessageBox.Show("Исправьте ошибки ввода");
+                MessageBox.Show(
+                    "Заполните все обязательные поля корректно:\n",
+                    "Ошибка ввода",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
+        
 
             Product.CategoryId = SelectedCategory.Id;
             Product.BrandId = SelectedBrand.Id;
 
-
-         if (Product.Id == 0)
+            if (Product.Id == 0)
             {
                 db.Products.Add(Product);
                 db.SaveChanges();
             }
-  
+
             Product.Tags.Clear();
 
             foreach (var tag in Tags.Where(t => t.IsSelected))
@@ -71,11 +89,11 @@ namespace pract_15.Windows
                 Product.Tags.Add(tagEntity);
             }
 
-            // сохраняем изменения
             db.SaveChanges();
-
             DialogResult = true;
         }
+
+
 
 
         private void Cancel_Click(object sender, RoutedEventArgs e)

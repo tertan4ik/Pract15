@@ -7,10 +7,12 @@
         mc:Ignorable="d"
         Title="Товар"
         Width="480"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+          DataContext="{Binding RelativeSource={RelativeSource Self}}" 
+        >
 
-    <Grid Margin="15">
-        <Grid.RowDefinitions>
+    <Grid Margin="15" x:Name="RootGrid"> 
+        <Grid.RowDefinitions> 
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -137,17 +139,41 @@
 
         <!-- КАТЕГОРИЯ -->
         <TextBlock Grid.Row="4" Text="Категория:"/>
-        <ComboBox Grid.Row="4" Grid.Column="1"
-                  ItemsSource="{Binding Categories}"
-                  SelectedItem="{Binding SelectedCategory}"
-                  DisplayMemberPath="Name"/>
+        <ComboBox Grid.Row="4"
+          Grid.Column="1"
+          ItemsSource="{Binding Categories}"
+          DisplayMemberPath="Name"
+                  Margin="0,0,0,5"
+                  >
+            <ComboBox.SelectedItem>
+                <Binding Path="SelectedCategory"
+                 UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validators:NotEmptyValidator/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+        </ComboBox>
+
 
         <!-- БРЕНД -->
         <TextBlock Grid.Row="5" Text="Бренд:"/>
-        <ComboBox Grid.Row="5" Grid.Column="1"
-                  ItemsSource="{Binding Brands}"
-                  SelectedItem="{Binding SelectedBrand}"
-                  DisplayMemberPath="Name"/>
+        <ComboBox Grid.Row="5"
+          Grid.Column="1"
+          ItemsSource="{Binding Brands}"
+          DisplayMemberPath="Name"
+                  Margin="0,0,0,5"
+                  >
+            <ComboBox.SelectedItem>
+                <Binding Path="SelectedBrand"
+                 UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validators:NotEmptyValidator/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+        </ComboBox>
+
 
         <!-- ОПИСАНИЕ -->
         <TextBlock Grid.Row="6" Text="Описание:" VerticalAlignment="Top"/>
